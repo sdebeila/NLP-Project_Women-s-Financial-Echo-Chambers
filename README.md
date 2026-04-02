@@ -51,10 +51,10 @@ Current NLP research in finance heavily prioritises broad market sentiment (Bloo
 ### Repository Structure
 ```
 ├── data/
-│   ├── r_wealthforwomen_posts.csv         # raw posts
-│   ├── r_wealthforwomen_comments.csv      # raw comments
-│   ├── final_posts_processed.csv          # cleaned & preprocessed
-│   └── final_comments_processed.csv       # cleaned & preprocessed
+│   ├── r_wealthforwomen_posts_raw.csv         # raw posts
+│   ├── r_wealthforwomen_comments_raw.csv      # raw comments
+│   ├── r_wealthforwomen_posts.csv          # cleaned & preprocessed
+│   └── r_wealthforwomen_comments.csv       # cleaned & preprocessed
 ├── scripts/
 │   ├── clean_wealthforwomen.R
 │   ├── preprocess_text.R
