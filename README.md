@@ -14,13 +14,13 @@ How does the sentiment of community responses (the "Echo") in female-centric fin
 
 ## 2. Importance
 
-While digital "safe spaces" provide essential social capital for women, they can also function as echo chambers where emotional support inadvertently bypasses rational financial due diligence. This is evidenced directly in the dataset: only 24 of 3,725 comments (0.6%) are flagged as controversial, suggesting a community that reinforces rather than challenges financial claims. Identifying these dynamics is critical for improving financial literacy and protecting users from predatory schemes — such as MLMs — that thrive on community validation rather than technical merit.
+While digital "safe spaces" provide essential social capital for women, they can also function as echo chambers where emotional support inadvertently bypasses rational financial due diligence. This is evidenced directly in the dataset: only 24 of 3,725 comments (0.6%) are flagged as controversial, suggesting a community that reinforces rather than challenges financial claims. Identifying these dynamics is critical for improving financial literacy and protecting users from predatory schemes such as MLMs that thrive on community validation rather than technical merit.
 
 ---
 
 ## 3. Deficiencies in Previous Work
 
-Current NLP research in finance heavily prioritises broad market sentiment (Bloomberg, Reuters) or gender-neutral platforms such as r/wallstreetbets and r/investing. There is a significant gap in understanding gendered digital discourse. Previous work fails to account for how "supportive" or "empowering" linguistic markers — unique to these communities — impact the perception of financial risk, leading to information siloing in specialised forums (Cookson et al., 2023). The community studied here (r/wealthforwomen) was founded in late 2025 and has no prior academic treatment, making this dataset a genuinely novel contribution.
+Current NLP research in finance heavily prioritises broad market sentiment (Bloomberg, Reuters) or gender-neutral platforms such as r/wallstreetbets and r/investing. There is a significant gap in understanding gendered digital discourse. Previous work fails to account for how "supportive" or "empowering" linguistic markers unique to these communities impact the perception of financial risk, leading to information siloing in specialised forums (Cookson et al., 2023). The community studied here (r/wealthforwomen) was founded in late 2025 and has no prior academic treatment, making this dataset a genuinely novel contribution.
 
 ---
 
