@@ -3,84 +3,125 @@
 > **Module:** Text Analysis and Natural Language Processing (Spring 2026)
 > **Student:** Shaleen Debeila
 > **Data Scope:** December 2025 – March 2026
+> **Status:** Analysis Complete
 
 ---
 
-## 1. Research Question
+## Research Question
 
-How does the sentiment of community responses (the "Echo") in female-centric financial forums correlate with the risk level of the investment advice being discussed (the "Trigger")? Specifically, does a high degree of "empowerment" sentiment serve as a linguistic validator for high-risk financial decision-making?
+How does the sentiment of community responses (the "Echo") in female-centric financial forums correlate with the risk level of the investment advice being discussed (the "Trigger")?
 
----
-
-## 2. Importance
-
-While digital "safe spaces" provide essential social capital for women, they can also function as echo chambers where emotional support inadvertently bypasses rational financial due diligence. This is evidenced directly in the dataset: only 24 of 3,725 comments (0.6%) are flagged as controversial, suggesting a community that reinforces rather than challenges financial claims. Identifying these dynamics is critical for improving financial literacy and protecting users from predatory schemes such as MLMs that thrive on community validation rather than technical merit.
+Specifically: **does high-empowerment sentiment serve as a linguistic validator for high-risk financial decision-making?**
 
 ---
 
-## 3. Deficiencies in Previous Work
+## Key Findings
 
-Current NLP research in finance heavily prioritises broad market sentiment (Bloomberg, Reuters) or gender-neutral platforms such as r/wallstreetbets and r/investing. There is a significant gap in understanding gendered digital discourse. Previous work fails to account for how "supportive" or "empowering" linguistic markers unique to these communities impact the perception of financial risk, leading to information siloing in specialised forums (Cookson et al., 2023). The community studied here (r/wealthforwomen) was founded in late 2025 and has no prior academic treatment, making this dataset a genuinely novel contribution.
-
----
-
-## 4. Value Added
-
-### Dataset
-
-| | |
+| Finding | Result |
 |---|---|
-| Posts (Triggers) | 84 original threads |
-| Comments (Echoes) | 3,725 community responses |
-| Unique authors | 1,935 participants |
-| Posts with engagement | 73 of 84 threads received comments |
+| Empowerment vs Risk Index (Spearman rho) | 0.072 (p = 0.568, not significant) |
+| Sentiment Gap vs Risk Index (Spearman rho) | −0.031 (p = 0.807, not significant) |
+| Mean Sentiment Gap | +0.26 (community more positive than posters) |
+| Controversiality rate | 0.6% across all 3,725 comments |
+| Dominant risk tier | Medium (45.2% of posts) |
+
+**The null correlation is itself the finding.** r/wealthforwomen functions as an *affective* echo chamber — positivity is amplified broadly across all risk tiers rather than being selectively directed at high-risk content. The near-zero controversiality rate indicates virtually no content is challenged regardless of financial risk level.
+
+---
+
+## Data
+
+**Source:** r/wealthforwomen — a Reddit community focused on how women earn, manage, protect, and control money.
+
+| | Count |
+|---|---|
+| Posts (raw) | 96 |
+| Posts (after cleaning) | 84 |
+| Comments (raw) | 3,762 |
+| Comments (after cleaning) | 3,725 |
+| Unique commenters | 1,940 |
+| Date range | December 2025 – March 2026 |
 | Avg post score | 72.0 (upvote ratio: 0.88) |
-| Echo chamber signal | 0.6% controversiality rate across all comments |
 
-### NLP Pipeline
+---
 
-| Step | Tool | Purpose |
+## Risk Tier Distribution
+
+| Risk Tier | Posts | Comments |
 |---|---|---|
-| Lexical analysis | Regex (R) | Custom Risk Dictionary — low / medium / high risk tiers |
-| Sentiment mining | BERTweet (Python) | Conversational social media syntax |
-| Financial classification | FinBERT (Python) | Financial topic tone |
-| Correlation | R (`ggplot2`) | Sentiment Gap × Risk Index |
+| High | 9 (10.7%) | 69 (1.9%) |
+| Medium | 38 (45.2%) | 750 (20.1%) |
+| Low | 7 (8.3%) | 369 (9.9%) |
+| Unclassified | 30 (35.7%) | 2,537 (68.1%) |
+
+---
+
+## Methodology
+
+A hybrid NLP pipeline implemented in **Positron (R 4.5.1)**:
+
+| Step | Script | Purpose |
+|---|---|---|
+| Data Cleaning | `clean_wealthforwomen.R` | Column selection, deduplication, timestamp parsing |
+| Text Preprocessing | `preprocess_text.R` | Tokenisation, stopword removal, noise filtering |
+| Risk Classification | `risk_dictionary.R` | Custom regex Risk Dictionary — Low / Medium / High tiers |
+| Sentiment Analysis | `sentiment_analysis.R` | AFINN scoring, NRC empowerment, Sentiment Gap, correlation |
+| Visualisations | `visualisations.R` | 6 ggplot2 figures for the final report |
 
 **Sentiment Gap:** The divergence between original poster tone and community response sentiment — the core metric for testing whether empowerment amplifies risk perception.
 
-### Repository Structure
+**Risk Index:** Per-post proportion of comments classified as High-risk — used as the dependent variable in correlation analysis.
+
+---
+
+## Repository Structure
+
 ```
 ├── data/
-│   ├── r_wealthforwomen_posts_raw.csv         # raw posts
-│   ├── r_wealthforwomen_comments_raw.csv      # raw comments
-│   ├── r_wealthforwomen_posts.csv          # cleaned & preprocessed
-│   └── r_wealthforwomen_comments.csv       # cleaned & preprocessed
+│   ├── r_wealthforwomen_posts.csv          # cleaned posts
+│   ├── r_wealthforwomen_posts_raw.csv      # raw posts
+│   ├── r_wealthforwomen_comments.csv       # cleaned comments
+│   ├── r_wealthforwomen_comments_raw.csv   # raw comments
+│   ├── posts_classified.csv               # risk tier classification
+│   ├── comments_classified.csv            # risk tier classification
+│   ├── posts_risk_index.csv               # per-post risk index
+│   └── sentiment_master.csv               # full sentiment + risk analysis
 ├── scripts/
 │   ├── clean_wealthforwomen.R
 │   ├── preprocess_text.R
 │   ├── risk_dictionary.R
-│   ├── sentiment_analysis.py
-│   └── analysis.R
+│   ├── sentiment_analysis.R
+│   └── visualisations.R
 ├── outputs/
-│   └── figures/
+│   └── figures/                            # 6 ggplot2 figures
 └── README.md
 ```
 
 ---
 
-## 5. The Takeaway
+## Environment
 
-This project tests whether community sentiment functions as a leading indicator of risk adoption in female-centric financial echo chambers. The near-zero controversiality rate (0.6%) combined with high community engagement across diverse risk topics provides a strong empirical basis for examining whether linguistic empowerment patterns precede or accompany high-risk financial discourse. The findings aim to offer academic and regulatory communities a new lens for assessing the influence of digital peer groups on financial stability.
+| Tool | Version |
+|---|---|
+| R | 4.5.1 |
+| Positron | latest |
+| tidyverse | 2.0.0 |
+| tidytext | 0.4.5 |
+| textdata | 0.4.5 |
+| syuzhet | 1.0.7 |
 
 ---
 
 ## References
 
 1. Cookson, J. A., Engelberg, J. E., & Mullins, W. (2023). Echo chambers. *The Review of Financial Studies, 36*(2), 450–500. https://doi.org/10.1093/rfs/hhac058
+
 2. Ben-Shmuel, A. T., Hayes, A., & Drach, V. (2024). The gendered language of financial advice: Finfluencers, framing, and subconscious preferences. *Socius, 10*. https://doi.org/10.1177/23780231241267131
+
 3. Christopher, A. R., & Nithya, A. R. (2025). Leveraging artificial intelligence to explore gendered patterns in financial literacy among teachers in academia. *Frontiers in Artificial Intelligence, 8*. https://doi.org/10.3389/frai.2025.1634640
+
 4. Zhai, C., & Massung, S. (2016). *Text data management and analysis: A practical introduction to information retrieval and text mining*. ACM Books. https://doi.org/10.1145/2915031
 
 ---
 
-*Data collected from a public Reddit community for academic research purposes.*
+*Data collected from a public Reddit community for academic research purposes. Spring 2026.*
